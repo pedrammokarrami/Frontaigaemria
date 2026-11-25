@@ -1,0 +1,281 @@
+{
+  "ran_at": "2026-11-25T02:01:08+00:00",
+  "users": 25,
+  "final_score": 100.0,
+  "per_user": [
+    {
+      "user": "b01_first_time",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "baseline",
+      "topGames": [],
+      "confidence": 0,
+      "deductions": []
+    },
+    {
+      "user": "b02_first_time_mobile",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "baseline",
+      "topGames": [],
+      "confidence": 0,
+      "deductions": []
+    },
+    {
+      "user": "b03_cs2_focus",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.83,
+      "deductions": []
+    },
+    {
+      "user": "b04_fc27_focus",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "fc27"
+      ],
+      "confidence": 0.67,
+      "deductions": []
+    },
+    {
+      "user": "b05_pivot_football_to_cs2",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "pivot",
+      "topGames": [
+        "cs2",
+        "fc27"
+      ],
+      "confidence": 0.83,
+      "deductions": []
+    },
+    {
+      "user": "b06_returning_after_break",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.5,
+      "deductions": []
+    },
+    {
+      "user": "b07_vague_queries",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.5,
+      "deductions": []
+    },
+    {
+      "user": "b08_meta_queries",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "fc27"
+      ],
+      "confidence": 0.5,
+      "deductions": []
+    },
+    {
+      "user": "b09_comparison",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.33,
+      "deductions": []
+    },
+    {
+      "user": "b10_troubleshooting",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.33,
+      "deductions": []
+    },
+    {
+      "user": "b11_gta_story",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "gta"
+      ],
+      "confidence": 0.5,
+      "deductions": []
+    },
+    {
+      "user": "b12_valorant_tactician",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "valorant"
+      ],
+      "confidence": 0.25,
+      "deductions": []
+    },
+    {
+      "user": "b13_platform_switch",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "fc27"
+      ],
+      "confidence": 0.33,
+      "deductions": []
+    },
+    {
+      "user": "b14_conflicting",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "pivot",
+      "topGames": [
+        "gta",
+        "fc27",
+        "cs2"
+      ],
+      "confidence": 0.25,
+      "deductions": []
+    },
+    {
+      "user": "b15_hardcore",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 1,
+      "deductions": []
+    },
+    {
+      "user": "b16_casual",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "fc27"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b17_strategy",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "dota2"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b18_age_cue_teen",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "engaged",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b19_age_cue_adult",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "engaged",
+      "topGames": [
+        "fc27"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b20_mixed_scroll",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "engaged",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.25,
+      "deductions": []
+    },
+    {
+      "user": "b21_nba_sports",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "nba2k27"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b22_gta_pivot_to_cs2",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "pivot",
+      "topGames": [
+        "cs2",
+        "gta"
+      ],
+      "confidence": 0.42,
+      "deductions": []
+    },
+    {
+      "user": "b23_only_clicks",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "engaged",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b24_stale_only",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "baseline",
+      "topGames": [],
+      "confidence": 0.17,
+      "deductions": []
+    },
+    {
+      "user": "b25_cross_leak_probe",
+      "score": 100.0,
+      "max": 100,
+      "scenario": "focused",
+      "topGames": [
+        "cs2"
+      ],
+      "confidence": 0.17,
+      "deductions": []
+    }
+  ],
+  "unresolved_deductions": []
+}

@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    ports: ["8090:8090"]
+    volumes:
+      - api-data:/srv/.data
+    restart: unless-stopped
+volumes:
+  api-data:

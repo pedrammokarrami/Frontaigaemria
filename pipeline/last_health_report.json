@@ -1,0 +1,112 @@
+{
+  "ran_at": "2026-11-25T00:07:44+00:00",
+  "host": "DESKTOP-6NJM5F0",
+  "core_bundle": "loaded",
+  "sources": {
+    "reddit_json": {
+      "ok": false,
+      "status": 0,
+      "latency_ms": 525,
+      "error": "HTTP Error 403: Blocked",
+      "verdict": "blocked/offline"
+    },
+    "steam_news_api": {
+      "ok": true,
+      "status": 200,
+      "latency_ms": 422,
+      "bytes": 1011,
+      "verdict": "reachable"
+    },
+    "duckduckgo": {
+      "ok": false,
+      "status": 0,
+      "latency_ms": 10085,
+      "error": "<urlopen error timed out>",
+      "verdict": "blocked/offline"
+    },
+    "local_kb_fallback": {
+      "ok": true,
+      "cards": 5,
+      "verdict": "working"
+    },
+    "failover_drill": {
+      "ok": true,
+      "cards_from_kb_only": 5
+    }
+  },
+  "content_quality": {
+    "games": {
+      "fc27": {
+        "ok": true,
+        "problems": [],
+        "game_specific": true
+      },
+      "nba2k27": {
+        "ok": true,
+        "problems": [],
+        "game_specific": true
+      },
+      "gta": {
+        "ok": true,
+        "problems": [],
+        "game_specific": true
+      },
+      "cs2": {
+        "ok": true,
+        "problems": [],
+        "game_specific": true
+      },
+      "valorant": {
+        "ok": true,
+        "problems": [],
+        "game_specific": true
+      }
+    },
+    "ok": true
+  },
+  "english_purity": {
+    "ok": true,
+    "leaks": [],
+    "leak_count": 0
+  },
+  "translation": {
+    "locales": {
+      "fa": {
+        "built": true,
+        "note": "fa: built (freeweb/passthrough, 209 strings, rtl=True)",
+        "translation_mode": "partial",
+        "translated_strings": 209,
+        "tokens_preserved": true,
+        "valid_schema": true,
+        "ok": true
+      },
+      "es": {
+        "built": true,
+        "note": "es: built (freeweb/passthrough, 0 strings, rtl=False)",
+        "translation_mode": "passthrough",
+        "translated_strings": 0,
+        "tokens_preserved": true,
+        "valid_schema": true,
+        "ok": true
+      }
+    },
+    "ok": true
+  },
+  "endpoint": {
+    "endpoint_base": "http://127.0.0.1:3000",
+    "core_bundle": {
+      "ok": true,
+      "status": 200,
+      "latency_ms": 4,
+      "bytes": 2503
+    },
+    "fa_locale": {
+      "ok": true,
+      "status": 200,
+      "latency_ms": 3,
+      "bytes": 2503
+    },
+    "ok": true
+  },
+  "overall": "PASS"
+}

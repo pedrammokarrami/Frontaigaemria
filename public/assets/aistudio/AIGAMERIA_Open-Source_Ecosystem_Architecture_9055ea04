@@ -1,0 +1,326 @@
+﻿AIGAMERIA Zero-Cost Open-Source and Free-Tier Technical Stack
+Building AIGAMERIA on a 100% zero-cost, open-source, and free-tier-first stack requires splitting execution between client-side WebAssembly/JavaScript compute and quota-guarded Gemini API calls. Google publishes no official numerical quotas for its Gemini API free tier, and an independent API guide tracking two free-tier Google AI Studio projects as of November 11, 2026 measured limits of roughly 20 requests per day (RPD) for Flash and 500 RPD for 3.5 Flash-Lite, with Gemini 4 Carbon and Argon excluded from free-tier access entirely. Consequently, your React + Vite + Tailwind + Three.js application should offload continuous speech recognition, audio classification, and cryptographic proof validation to browser workers (Transformers.js, @contentauth/c2pa-web, and tlsn WASM) while reserving the Gemini Developer API and its free-tier Live API models (gemini-2.5-flash-native-audio-preview-12-2025 and 09-2025) for high-value coaching synthesis, multimodal frame review, and AI Court adjudication.
+Across the Model Context Protocol (MCP) and GitHub ecosystems, active open-source tooling supports Chess.com, Lichess, Riot Games (League of Legends and Valorant), Steam, FACEIT CS2, Three.js/React Three Fiber, Blender, Supabase, Firebase, FFmpeg, VisionOS Glass UI, 3D Globes, VRM Avatars, and C2PA/zkTLS verification. Conversely, critical ecosystem gaps remain for Call of Duty and EA FC/FIFA live PvP match APIs (where kernel-level anti-cheat blocks injection and no verified open-source live-match MCP exists), browser anti-cheat telemetry and JS perceptual hashing (blockhash), and verified PandaScore/YouTube Data API free-tier quota schedules. Excluded from this stack are private or unreleased repositories (deven1003/chess-coach-mcp, Danyals-code/UI-Design-for-AVP), deprecated packages (c2pa legacy and c2pa-js-legacy), unmaintained 2022 wrappers (jakejrichards/cod-api), and paid proxy scrapers (trackergg-scraper).
+1. Model Context Protocol Servers and Agent Skills
+Antigravity and Gemini Workflow Skills
+Inside Antigravity and the Gemini API managed agent (antigravity-preview-09-2026), SKILL.md packages load progressively—indexing only frontmatter metadata at session start—to prevent context bloat and irrelevant auto-activation. Installing Google's official gemini-skills pack is the highest-impact setup step: Google's self-reported evaluations on the repository indicate that adding these skills raised agent accuracy on Gemini API code generation to 87% with Gemini 3 Flash and 96% with Gemini 3.1 Pro. Furthermore, Antigravity's managed agent natively supports streamable HTTP MCP servers and cron-scheduled triggers with stored credentials, enabling automated background data syncs for clan wars or leaderboard updates.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Google Gemini Skills (https://github.com/google-gemini/gemini-skills)
+	Official Google open-source repository; 100% free (exact SPDX license not specified in retrieved metadata)
+	AI Symbiote & Live API: Supplies gemini-live-api-dev (WebSocket audio/video streaming, VAD, function calling), gemini-api-cli, and gemini-omni-flash-api
+	Low — Bundled in Antigravity (Customizations → Build with Google Plugins) or installed via agy plugin install https://github.com/google-gemini/gemini-skills
+	Antigravity Skill Vault (https://github.com/rmyndharis/antigravity-skills)
+	Open-source community repository; 100% free (exact SPDX license not specified in retrieved metadata)
+	Core Platform Architecture: 300+ workflows covering api-design-principles, security-auditor, and TDD cycles
+	Low — Install targeted bundles to workspace /.agent/skills/ or global ~/.gemini/config/skills/; avoid installing --all to limit session token bloat
+	Tech Leads Club Agent Skills & MCP (https://github.com/tech-leads-club/agent-skills)
+	Open-source hardened skill registry; 100% free (each skill pre-scanned via Snyk Agent Scan)
+	Antigravity DevSecOps: Symlink-guarded skill delivery and progressive-disclosure @tech-leads-club/agent-skills-mcp
+	Low — Register via npx -y @tech-leads-club/agent-skills-mcp in MCP configuration
+	Antigravity Gemini Skills (https://github.com/nicolasestrem/antigravity-gemini-skills)
+	Open-source YAML+Markdown skill collection; 100% free (exact SPDX license not specified in retrieved metadata)
+	Frontend & Parallel Agent Flows: Wave-enabled workflows integrating Sequential, Context7, Playwright, and Banana MCPs
+	Low — Built for Claude Code inside Antigravity; install into skills directory and trigger workflows such as /implement and /troubleshoot
+	Gaming Statistics, Match Histories, and Player Profiles
+Cross-game telemetry divides cleanly between ecosystems with free public APIs (Chess.com, Lichess, Riot Games, Steam, and FACEIT) and closed publisher ecosystems (EA FC/FIFA and Call of Duty). For Chess and Riot titles, several 2025–2026 MCP servers support both local stdio for Antigravity and HTTP/SSE transports for web backends. Notably, prepaser/llm-chess-mcp exposes Stockfish, Leela Chess Zero (Lc0), and Maia3 (human-move likelihood conditioned on target Elo), letting AIGAMERIA distinguish objective calculation errors from human playstyle tendencies. For League of Legends, kostadindev/League-of-Legends-MCP exposes an SSE transport (--transport sse on port 8000) alongside Data Dragon static assets and an optional Gemini client.
+For EA FC/FIFA and Call of Duty, no zero-cost official match-history API or full stats MCP exists in verified open-source registries. INSANE0777/Fc26-live-editor-mcp targets local EA FC 26 squad-file reverse engineering, while kupsas/football-data-mcp maps real-world SofaScore/xG soccer stats to EA FC attributes rather than player match logs. On the Call of Duty side, kernel anti-cheat blocks telemetry injection, prior API wrappers like jakejrichards/cod-api have been idle since 2022, and third-party scrapers rely on paid residential proxies. Consequently, AIGAMERIA should ingest EA FC and Call of Duty match results through user-submitted screenshots verified via the C2PA and zkTLS pipelines in Section 2.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	LLM Chess MCP (https://github.com/prepaser/llm-chess-mcp)
+	Open-source self-hosted MCP; 100% free (exact SPDX license not specified in retrieved metadata)
+	AI Symbiote & Gamer Clone (Chess): Exposes Stockfish, Lc0, Maia3 Elo-conditioned human probabilities, and Lichess Explorer
+	Medium — Listens on Streamable HTTP (127.0.0.1:3000/mcp) and SSE; bundles CPU engines for Linux/Windows x64; optional free Lichess token
+	Chess Coach (https://github.com[span_50](start_span)[span_50](end_span)/m-allakov/chess-coach)
+	Open-source repository; 100% free (exact SPDX license not specified in retrieved metadata)
+	AI Coach & Peer Benchmarks: Two-pass Stockfish (depth 12/16), win-chance grading, peer rating-band quartiles, and fact-checked prose
+	Medium — Queries Chess.com public API without keys; includes cached local web dashboard and benchmarks.json peer quartiles
+	Chess Coach MCP (Bilingual) (https://github.com/parkseokjune/chess-coach-mcp)
+	Open-source Python package; 100% free (exact SPDX license not specified in retrieved metadata)
+	AI Coach & Drills: Personal weakness diagnosis, tactical motifs, and blunder-derived drills for Lichess and Chess.com
+	Low — Run via uvx chess-coach-mcp; requires local Stockfish executable (STOCKFISH_PATH)
+	Stolowski Chess MCP (https://github.com/stolowski/chess-mcp)
+	MIT License; 100% free and open-source
+	AI Court Position Referee: Minimal Go binary exposing evaluate_FEN and show_board_for_FEN via UCI Stockfish
+	Low — Compile with Go (go build -o ./chess-mcp) and register over stdio with Stockfish in PATH
+	MCP Chess Server (https://github.com/CyprianFusi/mcp-chess-server)
+	Open-source Python MCP; 100% free (exact SPDX license not specified in retrieved metadata)
+	Gamer ID (Chess.com): Fetches profiles, ratings across time controls, puzzle rush stats, and W/L/D records
+	Low — Run via uvx --from git+https://github.com/CyprianFusi/mcp-chess-server.git chess.py; zero API keys needed
+	Chess-MCP (TypeScript) (https://github.com/arvid-berndtsson/Chess-MCP)
+	Open-source TypeScript MCP; 100% free (exact SPDX license not specified in retrieved metadata)
+	Micro-Game Engine (Chess): Built on chess.js with 5-level minimax AI, transposition tables, and FEN/PGN support
+	Low — Native Node/TS stack (npx tsx src/index.ts), straightforward to embed into React frontend modules
+	Chess Conversation MCP (https://github.com/MaximeSwagel/Chess_Conversation_MCP)
+	Open-source repository; 100% free (requires free Lichess OAuth token)
+	Gamer ID (Lichess): Conversational Lichess game lookups and API interaction
+	Low — Set LICHESS_API_KEY in .env and attach via stdio
+	League of Legends MCP (https://github.com/kostadindev/League-of-Legends-MCP)
+	MIT License; 100% free (requires free Riot Developer API key)
+	Gamer ID & AI Coach (Riot/LoL): Covers Account, Summoner, Match, Clash, Spectator, Challenges, Data Dragon, and Gemini ReAct workflows
+	Low — Run Docker image kostadindev/league-mcp:latest with --transport sse (port 8000) and RIOT_API_KEY
+	MCP Riot (https://github.com/jifrozen0110/m[span_57](start_span)[span_57](end_span)cp-riot)
+	MIT License; 100% free (requires free Riot API key)
+	Gamer ID (LoL Summary): Summoner level, Solo rank, top champion mastery, and KDA/ward match summaries
+	Low — Clone, run uv sync, and configure RIOT_API_KEY in .env
+	Valorant MCP Server (https://github.com/codenilson/valorant-mcp-server)
+	Open-source Python 3.13+ server; 100% free (requires free HenrikDev API key)
+	Gamer ID & Leaderboards (Valorant): Riot ID/PUUID lookups, RR/MMR history, round economy, and regional leaderboards
+	Low — Official Docker image ghcr.io/codenilson/valorant-mcp-server:latest; includes ready-to-paste Antigravity JSON config
+	Valorant MCP (Bun/TS) (https://github.com/novnski/valorant-mcp)
+	Open-source Bun + TypeScript server; 100% free (free Henrik key, no Riot key)
+	AI Symbiote Post-Match (Valorant): 15 tools for round reviews, death analysis, tactical map rendering, and community lineups
+	Medium — Requires Bun 1.3.8+; supports stdio and HTTP; accepts Tracker.gg profile/match URLs
+	Riot Docs MCP (https://skillselion.com/mcp/tool/io.github.chirpon9/riot-docs-mcp)
+	Open-source dev tool; 100% free (exact SPDX license not specified in retrieved metadata)
+	Antigravity Dev Acceleration: Exposes 33+ Riot API endpoint specs (LoL, Valorant, TFT, LoR) inside the IDE
+	Low — Documentation-only dev MCP; does not make live Riot API calls
+	SteamDB MCP Server (https://lobehub.com/mcp/irfanmaulanaak-steamdb-mcp)
+	Open-source MCP server; 100% free (optional STEAM_API_KEY; exact SPDX license not verified)
+	Gamer ID (Steam): Combines Steam Web API, Store API, and SteamSpy for libraries, concurrent players, and top charts
+	Low — Set optional STEAM_API_KEY environment variable for user library lookups
+	FACEIT MCP (tqakdev/faceit-mcp) (listed on https://github.com/topics/faceit?l=python&o=desc&s=stars)
+	Open-source Python repository; 100% free (uses FACEIT API; exact SPDX license not verified)
+	Gamer ID (CS2/Competitive FPS): Live CS2 FACEIT stats, match history, player comparisons, and ELO tracking
+	Low — Python MCP server updated in 2026; pair with SteamID lookups
+	FC26 Live Editor MCP & Football Data MCP (https://github.com/INSANE0777/Fc26-live-editor-mcp, https://github.com/kupsas/football-data-mcp)
+	Open-source repositories; 100% free (exact SPDX licenses not specified in retrieved metadata)
+	EA FC Squad & Attribute Mapping (Partial): Local squad-file reverse engineering (Fc26-live-editor-mcp) and SofaScore xG to EA FC attribute mapping
+	High — Neither provides live EA FC PvP match history; use only for roster/attribute workflows
+	Three.js, React Three Fiber, and 3D Asset Automation
+LLMs frequently generate broken Three.js code from older releases—such as calling RGBELoader instead of HDRLoader, Clock instead of Timer, or EffectComposer instead of WebGPU RenderPipeline. Pairing cloudai-x/threejs-skills (aligned with three@0.186 and React Three Fiber 9.8) with threejs-devtools-mcp resolves API drift by giving Antigravity live WebSocket inspection over your browser canvas and diff-ready apply-to-code edits. For generating custom 3D trophies, arena props, and VRM accessories without paid asset stores, mcp-for-blender and img2threejs provide complementary Blender-based and code-only TypeScript THREE.Group pipelines.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Three.js DevTools MCP (https://glama.ai/mcp/servers/Berk08018/threejs-devtools-mcp)
+	Open-source MCP server; 100% free (exact SPDX license not specified in retrieved metadata)
+	Spatial Web Engine & QA: 69 tools for live scene-tree edits, gltf_to_r3f, WebGL/WebGPU audits, and 60 fps clip capture
+	Low — Run npx -y threejs-devtools-mcp; auto-detects Vite port and injects WebSocket bridge at localhost:9222 with zero code changes
+	Three.js Skills (r186 / R3F 9.8) (https://github.com/cloudai-x/threejs-skills)
+	Open-source skill suite; 100% free (exact SPDX license not specified in retrieved metadata)
+	Spatial UI & WebGPU Shaders: 13 skills covering R3F 9.8, drei 10.7, gltf-transform 4.5, WebGPURenderer, and TSL
+	Low — Install via npx skills add cloudai-x/threejs-skills or copy into project skills folder
+	img2threejs Skill (https://github.com/nano-step/img2threejs/blob[span_141](start_span)[span_141](end_span)/main/SKILL.md; hoainho/img2threejs via https://skillsllm.com/skill/img2threejs)
+	Open-source AI agent skill; 100% free (exact SPDX license not specified in retrieved metadata)
+	Procedural Badges, Trophies & Props: Reconstructs a 2D reference image into code-only TypeScript THREE.Group factories with pivots and colliders
+	Low — Place in skills directory and invoke with an object reference image to avoid external 3D asset packs
+	Three.js React UI & Game Director Skills (https://mcpmarket.com/tools/skills/three-js-react-ui-specialist, https://threejsresources.com/ai/skills)
+	Open-source agent skills; 100% free (exact SPDX licenses not specified in retrieved metadata)
+	Spatial HUD & Micro-Game Routing: Mobile-responsive R3F floating cards, disposal patterns, and threejs-game-director routing
+	Low — Install via npx skillfish add naveedtechlab/naveed-tech-lab_skills threejs-react-ui-specialist or drop SKILL.md
+	MCP for Blender (https://github.com/ahujasid/mcp-for-blender; alternatives https://github.com/3d-mcp/blender-mcp, https://github.com/zorak1103/blender-mcp)
+	Open-source (3d-mcp/blender-mcp uses MIT server + GPL-3.0-or-later add-on; exact SPDX license for ahujasid not verified in snippet)
+	Meta-World Map & Avatar Forge: Automates Blender scene creation, shaders, and glTF/GLB exports for three-vrm and R3F
+	Low — uvx mcp-for-blender setup auto-detects Antigravity and installs the Blender socket add-on
+	Pascal 3D Editor & MCP (https://github.com/pascalorg/editor)
+	MIT License; 100% free (@pascal-app)
+	Spatial Arena / Scene Builder: R3F + WebGPU 3D editor codebase with integrated MCP server
+	Medium — Fork or reference @pascal-app for WebGPU R3F scene serialization
+	Supabase and Firebase Free-Tier MCP Servers
+Both major free-tier backend platforms provide official, permissively licensed MCP servers compatible with Antigravity. Supabase MCP (Apache-2.0) is the stronger core choice for AIGAMERIA because it combines Postgres relational player graphs, Vector embeddings for "Gamer Clone" behavioral matching, Edge Functions, and Realtime Broadcast in one SQL environment. Firebase MCP (MIT) is a strong complement or alternative if you want zero-config Google Authentication and Firestore/Realtime Database document sync.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Official Supabase MCP Server (https://github.com/supabase/mcp)
+	Apache-2.0 License; 100% free on Supabase Free Tier
+	Gamer ID, Vector Memory & Leaderboards: SQL migrations, Postgres Vector embeddings, Edge Functions, Queues, Cron, and Realtime
+	Low — Connect via Streamable HTTP https://mcp.supabase.com/mcp (OAuth 2.1) or local CLI http://localhost:54321/mcp; supports readOnly=true and projectScoped=true
+	Official Firebase MCP Server (https://github.com/firebase/firebase-tools, https://github.com/firebase/agent-skills)
+	MIT License (firebase-tools) & Apache-2.0 (agent-skills); free on Spark Plan
+	Auth, Live Lobbies & Push Alerts: 30+ tools for Firebase Auth, Firestore, Storage, Security Rules, and Cloud Messaging
+	Low — Native Antigravity install (Agent pane > MCP Servers > Firebase > Install) or npx -y firebase-tools@latest mcp; scope with --only firestore,auth
+	Community Firebase & RTDB MCPs (https://github.com/gannonh/firebase-mcp, https://github.com/ytzlax/firebase-realtimeDB-mcp)
+	MIT License (gannonh/firebase-mcp); 100% free locally (ytzlax SPDX license not verified)
+	Headless Admin & RTDB Sync: Service-account-key auth (gannonh) and Firebase Realtime Database operations (ytzlax)
+	Medium — Requires Firebase service account JSON; note gannonh Functions deployment targets Firebase projects with billing enabled
+	Video/Screen Analysis, Clip Extraction, and Audio Highlight MCPs
+For automated highlight reels, local FFmpeg MCP servers execute deterministic trimming, stitching, and HUD overlays without cloud video-processing fees. Although MCP directories mention Whisper transcription integrations such as Video Transcriber MCP Whisper and faster-whisper helpers, no standalone MIT/Apache GitHub Whisper MCP repository URL with verified source metadata was confirmed in our research records. Rather than relying on unverified third-party Whisper MCP wrappers, pair local ffmpeg-mcp for clip assembly with in-browser Transformers.js Whisper or Gemini gemini-api-cli for YouTube/video analysis.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	FFmpeg MCP (https://github.com/video-creator/ffmpeg-mcp)
+	Open-source GitHub repository; 100% free (exact SPDX license not specified in retrieved metadata)
+	Highlight Studio & Clip Extractor: Conversational video search, trimming, clipping, overlay, and concatenation
+	Low — Requires local ffmpeg binary in PATH; suited for Antigravity dev-agent media pipelines
+	FFmpeg-LLM MCP (https://github.com/Mnehmos/mnehmos.ffmpeg-llm.mcp)
+	Open-source GitHub repository; 100% free (exact SPDX license not specified in retrieved metadata)
+	Automated Highlight Montage Engine: Exposes FFmpeg editing operations as MCP tools (includes optional OpenRouter LLM autopilot)
+	Medium — Use local MCP tool exposure without paid OpenRouter keys by driving edits directly from Antigravity/Gemini
+	2. Core Gaming and AI Open-Source Repositories
+Spatial and 3D Gaming UI
+AIGAMERIA's React + Vite + Tailwind + Three.js frontend benefits from separating 2D VisionOS glass HUD overlays from 3D diegetic scene UI. Pairing @mawtech/glass-ui (MIT) or fluid-design-io/vision-ui for crisp DOM typography with @react-three/uikit inside the <Canvas> avoids illegible 3D-textured text while keeping spatial immersion. For the Meta-World Map and 3D Gamer Clone Avatars, vasturiano/three-globe (MIT) and @pixiv/three-vrm (MIT) serve as zero-cost, WebGL/WebGPU-ready foundations.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	React Three UIKit (pmndrs/uikit) (referenced via https://github.com/stefanofa/awesome and NVIDIA CloudXR sample https://docs.nvidia.com/cloudxr-sdk/latest/usr_guide/cloudxr_js/examples.html)
+	Open-source Poimandres library; 100% free (exact SPDX license not verified in retrieved metadata)
+	3D Spatial Gaming HUD: Native 3D user interfaces rendered inside React Three Fiber and React Three XR scenes
+	Medium — Composes directly inside <Canvas> alongside R3F and @react-three/xr
+	React Glass UI (@mawtech/glass-ui) (https://github.com/mawtechsolutions/react-glass-ui)
+	MIT License; 100% free
+	VisionOS Overlay HUD & Command Palette: Dark-mode-first GlassCard, GlassModal, GlassNavbar, GlassAvatar, and ⌘K GlassCommandPalette
+	Low — npm i @mawtech/glass-ui, import styles.css, and add package path to tailwind.config.js content
+	Vision UI & React Glass Rim (https://github.com/fluid-design-io/vision-ui, https://github.com/royroki/react-glass-rim)
+	Open-source React UI kits; 100% free (exact SPDX licenses not specified in retrieved metadata)
+	Spatial App Launcher & Specular Borders: CSS view-transition honeycomb grid (vision-ui) and directional liquid-glass rims (react-glass-rim)
+	Medium — Extract surface.styles.ts and CSS @starting-style transitions into your Vite + Tailwind shell
+	Three-Globe / Globe.GL / React-Globe.GL (https://github.com/vasturiano/three-globe, https://github.com/vasturiano/globe.gl, https://sourceforge.net/projects/react-globe-gl.mirror/ mirroring vasturiano/react-globe.gl)
+	MIT License (three-globe verified); 100% free
+	Meta-World Conquest Map: Interactive 3D globe with H3 hexagonal territory binning, animated clan-war arcs, Gaussian KDE heatmaps, and custom 3D markers
+	Low — Use react-globe.gl for declarative React layers or embed ThreeGlobe inside an R3F scene
+	Three-VRM (@pixiv/three-vrm) (https://github.com/pixiv/three-vrm)
+	MIT License; 100% free Ready Player Me open alternative
+	3D Humanoid Avatar / Gamer Clone Viewer: Loads standard .vrm avatars; v3+ supports WebGPURenderer via MToonNodeMaterial (Three.js r167+)
+	Low — npm i three @pixiv/three-vrm; register VRMLoaderPlugin on GLTFLoader
+	Amica (https://github.com/semperai/amica)
+	MIT License (core codebase; individual 3D models/images retain author licenses); 100% free
+	AI Symbiote Reference Client: Combines three.js, @pixiv/three-vrm, Transformers.js, Whisper, Silero VAD, and vision input
+	Medium — Fork or port its VRM animation, VAD, and voice-loop hooks into your Vite + Gemini Live API client
+	AI Game Coaching and Behavioral Analysis
+No single open-source GitHub project delivers a turnkey Gemini Live API multimodal gameplay-vision coach for real-time shooters or MOBAs. Instead, you can assemble AIGAMERIA's AI Symbiote and Gamer Clone from three proven open-source patterns: Amica's real-time VRM + vision/audio loop, LLM Chess MCP's Maia3 human-playstyle modeling, and Chess Coach's deterministic fact-checking architecture (commentary.py), which validates every numerical claim generated by an LLM against ground-truth engine statistics before displaying it to the player.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	LLM Chess MCP (Stockfish + Lc0 + Maia3) (https://github.com/prepaser/llm-chess-mcp)
+	Open-source self-hosted server; 100% free (exact SPDX license not specified in retrieved metadata)
+	Gamer Clone / Playstyle Modeling: Computes objective strength (Stockfish/Lc0) alongside Elo-conditioned human-move probability (maia3Prob)
+	Medium — Consume over HTTP/SSE; store maia3Prob vs cpLoss signatures as Supabase Vector embeddings
+	Chess Coach (Fact-Checked Engine) (https://github.com/m-allakov/chess-coach)
+	Open-source repository; 100% free (exact SPDX license not specified in retrieved metadata)
+	Hallucination-Free Coaching Pipeline: Two-pass depth 12/16 search (94.2–94.4% blunder recall vs depth 20 in internal tests), win-chance grading, and commentary.py numerical verifier
+	Medium — Port the logistic win-chance classifier and numerical fact-checker wrapper around Gemini API outputs
+	Stockfish (https://github.com/mcostalba/Stockfish)
+	Open-source UCI chess engine; 100% free (exact SPDX license not specified in retrieved metadata)
+	Deterministic Chess Engine: Ground-truth evaluation engine backing coaching and cheat-detection audits
+	Low — Run server-side via the Chess MCPs above with Lichess cloud eval fallback (no verified Stockfish WASM package was confirmed in retrieved records)
+	League of Legends MCP (Gemini ReAct Client) (https://github.com/kos[span_51](start_span)[span_51](end_span)tadindev/League-of-Legends-MCP)
+	MIT License; 100% free
+	Esports Coaching & Draft Analysis: Built-in workflows for team comps, champion mastery, and improvement plans using GOOGLE_API_KEY
+	Low — Adapt its prompt workflows and ddragon:// resource schemas into Gemini API function calling
+	Micro-Game and Mini-Simulation Engines
+For lightweight browser skill trials and AI-generated micro-games inside AIGAMERIA, pair Phaser or KAPLAY for 2D Canvas/WebGL challenges with Path Protocol V3 (argentquest/protocol) for deterministic React + Three.js 3D arenas. argentquest/protocol is particularly instructive because it isolates a fixed 60 Hz simulation loop and JSON-Schema-validated procedural courses from a React 19 + Vite + Three.js renderer.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Phaser (https://github.com/photonstorm/phaser)
+	MIT License; 100% free
+	2D Micro-Games & Reaction Trials: HTML5 Canvas/WebGL engine (PixiJS internally) with built-in physics, sprites, and audio
+	Low — Mount a Phaser game instance inside a React useEffect container ref
+	KAPLAY (https://github.com/kaplayjs/kaplay)
+	Open-source JS/TS engine; 100% free (exact SPDX license not specified in retrieved metadata)
+	AI-Generated Procedural Micro-Games: Lightweight TypeScript game loop suited for Gemini-generated mini-games
+	Low — Install via npm in Vite; minimal boilerplate improves LLM code-generation reliability
+	Path Protocol V3 (https://github.com/argentquest/protocol)
+	Open-source React 19 + Three.js game; 100% free (exact SPDX license not specified in retrieved metadata)
+	3D Precision Arena & Level Schema: Deterministic 60 Hz fixed-timestep engine, 100 levels, 126 GLB catalog, and JSON-Schema-validated courses
+	Medium — Fork as the foundation for AIGAMERIA 3D skill trials and community-created JSON challenges
+	React Three Examples (v10 Spec) (https://github.com/pmndrs/reac[span_62](start_span)[span_62](end_span)t-three-examples/blob/main/[span_305](start_span)[span_305](end_span)docs/SPEC.md)
+	Open-source Poimandres specification; 100% free
+	WebGPU-First 3D Sim Conventions: Idiomatic R3F v10 ports and automated agent coding rules (SPEC.md)
+	Low — Reference SPEC.md in Antigravity prompts to enforce concise, leak-free R3F micro-simulations
+	Anti-Cheat and Proof of Skill
+AIGAMERIA operates in a web browser and therefore cannot deploy kernel anti-cheat drivers; moreover, trying to hook native games guarded by Vanguard, VAC, or Call of Duty anti-cheat triggers immediate blocks. No standalone open-source browser anti-cheat telemetry library or JavaScript perceptual-hashing (blockhash) repository was confirmed in our ecosystem search. Instead, build AI Court and Proof of Skill around two verifiable cryptographic layers: C2PA Content Credentials (@contentauth/c2pa-web + ChronoVerify MCP) to authenticate captured gameplay screenshots/clips, and zkTLS / Zero-Knowledge Proofs (tlsnotary/tlsn, snarkjs) so players can prove stats fetched over HTTPS without exposing account credentials. Note that reclaimprotocol carries mixed licensing (MIT in .github/LICENSE versus a custom license in reclaimprotocol/tls and docs), so audit its terms before redistributing its TLS library.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	C2PA JS (@contentauth/c2pa-web & c2pa-node) (https://github.com/contentauth/c2pa-js, https://github.com/contentauth/c2patool-service-example)
+	Open-source CAI JavaScript SDK; 100% free (exact SPDX license not specified; do not use deprecated c2pa / c2pa-js-legacy)
+	AI Court & Highlight Provenance: Validates C2PA manifests in-browser via WASM; c2patool signs uploaded media
+	Medium — Keep Node/browser trust stores patched (c2pa-rs 0.91.7+); note late-2026 WASM settings parser issue c2pa-js#252 (JSON vs TOML) when passing custom settings
+	ChronoVerify MCP Server (https://opensource.contentauthenticity.org/docs/community-resources/)
+	Listed open-source CAI ecosystem validator; 100% free
+	AI Court Automated Forensics: Validates C2PA Content Credentials against official trust lists alongside EXIF/XMP and pixel-forensics checks
+	Low — Attach to your dispute-resolution agent for automated screenshot verification
+	TLSNotary (tlsn) (https://github.com/tlsnotary/tlsn, https://github.com/tlsnotary/tlsn-utils)
+	Dual Apache-2.0 / MIT License; 100% free
+	Proof of Skill (zkTLS): Rust-to-WASM MPC-TLS lets players prove HTTPS match/rank portals (e.g., EA FC/CoD/Riot) without leaking session cookies
+	High — Explicitly marked pre-production with breaking changes; Rust-to-WASM requires clang 16.0.0+ and a WebSocket verifier/notary relay
+	Reclaim Protocol Agent & TLS (https://github.com/reclaimprotocol/developer-tools, https://github.com/reclaimprotocol/tls)
+	.github/LICENS[span_326](start_span)[span_326](end_span)[span_329](start_span)[span_329](end_span)E states MIT, but tls and docs specify a custom license—verify before commercial use
+	Antigravity zkTLS Provider Synthesis: @reclaimprotocol/agent MCP automates browser capture and zkTLS provider generation
+	Medium — Install via agy plugin install https://github.com/reclaimprotocol/developer-tools; requires local Chrome/Chromium/Edge
+	SnarkJS & Noir Reference (0xFacet/megabirds) (https://www.npmjs.com/package/snarkjs, https://github.com/0xFacet/megabirds)
+	Open-source ZK tooling; 100% free (exact SPDX license not specified in retrieved snippets)
+	Privacy-Preserving Skill Proofs: Browser Groth16/Noir proof verification (megabirds demonstrates TLSNotary WASM + Noir inside Vite)
+	High — An academic benchmark (arXiv:2603.26343v1) measured snarkjs at 479 ms witness, 2132 ms prove, and 1405 ms verify; Node scripts using 0.7.5 must call process.exit(0) due to open MessagePort handles
+	3. Free-Tier Infrastructure and Multimodal APIs
+Real-Time Voice, Audio Stress, and Sentiment Analysis
+Streaming continuous competitive-lobby voice directly to cloud models would rapidly exhaust Google AI Studio's free-tier limits. A hybrid zero-cost pipeline avoids that bottleneck: run Voice Activity Detection (VAD), quantized speech recognition, and audio/text sentiment classification locally in the browser using Transformers.js, and open a Gemini Live API WebSocket session only on explicit user push-to-talk or coaching escalation.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Transformers.js (https://github.com/huggingface/transformers.js)
+	Open-source Hugging Face JS runtime (ONNX Runtime WASM); 100% free, zero server fees (exact SPDX license not specified in retrieved metadata)
+	Lobby Voice Stress & Sentiment: Runs quantized (q8/q4) Whisper ASR, audio-classification, zero-shot-audio-classification, and sentiment-analysis in-browser
+	Low — Select <100 MB quantized models and run inside a Web Worker so inference never drops Three.js below 60 fps
+	Gemini Live API (Free Tier) (https://firebase.google.com/docs/ai-logic/live-api, https://aistudio.google.com/docs/changelog)
+	Free Tier on Gemini Developer API for gemini-2.5-flash-native-audio-preview-12-2025 and 09-2025
+	AI Symbiote Voice & Vision: Bidirectional WebSocket streaming for voice, video frames, VAD, and tool calling
+	Medium — Quotas bind per Google Cloud project (not per API key) and reset at midnight PT; check aistudio.google.com/rate-limit for active project limits
+	Free Game Data APIs
+Official read-only REST endpoints and community gateways cover Chess, League of Legends, Valorant, Steam, CS2 FACEIT, and Twitch at zero cost. Two requested sources lacked verified quota details in our research records: no confirmed free-tier rate-limit schedules were retrieved for PandaScore (esports schedules) or YouTube Data API (stream search), so verify their current developer quota pages before building automated polling loops.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Chess.com Public API (https://api.chess.com/pub)
+	100% free read-only REST API; no authentication required
+	Gamer ID & Benchmarks (Chess.com): Profiles, ratings, monthly game archives, clubs, and titled players
+	Low — Cache immutable past-month game archives in Supabase to minimize redundant fetches
+	Lichess API (https://lichess.org/account/oauth/token/create)
+	100% free open-source platform; optional free personal OAuth token
+	Gamer ID, Opening Explorer & Fallback Evals: Game exports, explorer statistics, and cloud evaluations
+	Low — Queue Opening Explorer requests serially and respect shared 429 cooldowns
+	Riot Games Developer API & Data Dragon (https://developer.riotgames.com/)
+	Free developer tier; static ddragon assets require no authentication
+	Gamer ID & Match History (LoL/TFT): Account, Summoner, Match, Clash, Spectator, and Challenge endpoints
+	Medium — Temporary development keys expire frequently; register an application key via Riot Developer Portal before production
+	HenrikDev Valorant API (integrated in https://github.com/codenilson/valorant-mcp-server, https://github.com/novnski/valorant-mcp)
+	Free developer API key tier; requires no Riot developer key
+	Gamer ID & Round Telemetry (Valorant): MMR/RR history, round economy, and regional leaderboards
+	Low — Proxy calls through an edge worker or MCP server to keep HENRIK_API_KEY off the client
+	Steam Web API, Store API & SteamSpy (integrated in https://lobehub.com/mcp/irfanmaulanaak-steamdb-mcp)
+	100% free via Steam Web API key (Store/SteamSpy endpoints public)
+	Gamer ID & PC Library Graph: User game libraries, playtime, live player counts, and Store metadata
+	Low — Store STEAM_API_KEY server-side; handle private Steam profiles gracefully
+	FACEIT Data API & Twitch Developer API (https://dev.twitch.tv, FACEIT via https://github.com/topics/faceit?l=python&o=desc&s=stars)
+	100% free for registered developers
+	CS2 ELO & Live Stream Presence: FACEIT CS2 ELO/match histories and Twitch stream status/metadata
+	Low — Register a free Twitch developer app at dev.twitch.tv for OAuth tokens
+	Zero-Cost Hosting, Edge Functions, and Real-Time WebSockets
+To host AIGAMERIA's Vite frontend, API key proxies, and live tournament rooms at zero cost, combine Supabase Free Tier (Postgres, Auth, Vector embeddings, Edge Functions, and Realtime Broadcast) with Cloudflare Workers and PartyKit for stateful edge WebSockets. Exact 2026 free-tier ceiling numbers (bandwidth, MAUs, or Worker invocation caps) were not itemized in the retrieved records and should be checked in the respective dashboards before running large public tournaments.
+Exact Name & Direct URL
+	License & Cost Verification
+	Specific AIGAMERIA Module Fit
+	Integration Complexity & Setup Notes
+	Supabase (https://github.com/supabase/supabase, https://github.com/supabase/mcp)
+	Open-source platform (Apache-2.0 MCP) with managed Free Tier
+	Core Backend, Gamer Clone Vectors & Leaderboards: Postgres + Vector embeddings, Auth, Storage, Deno Edge Functions, Cron, Queues, and Realtime
+	Low — Provision tables, RLS policies, and edge endpoints straight from Antigravity via supabase/mcp
+	Firebase Spark Plan (https://github.com/firebase/firebase-tools)
+	Free Spark tier (MIT CLI and MCP)
+	Alternative Auth, Hosting & RTDB: Google Auth, Cloud Firestore, Realtime Database, and App Hosting
+	Low — Managed directly via Antigravity's built-in Firebase MCP; avoid Cloud Functions triggers that require Blaze billing
+	Cloudflare Workers & PartyKit (https://github.com/partykit/partykit referenced in)
+	Open-source WebSocket platform (partykit); Cloudflare Workers offers a gratis edge API tier
+	Live Tournaments, Clan Wars & API Proxy: Edge proxy hiding RIOT_API_KEY / HENRIK_API_KEY and low-latency WebSocket rooms
+	Medium — Ideal lightweight stateful room layer for synchronized Meta-World globe events and tournament brackets
+	4. Recommended Implementation Sequence and Architectural Trade-Offs
+1. Configure Antigravity IDE First: Install google-gemini/gemini-skills, cloudai-x/threejs-skills, Berk08018/threejs-devtools-mcp, and [span_128](start_span)[span_128](end_span)supabase/mcp before writing application code. This prevents LLM hallucinations across Three.js r186/WebGPU and Gemini Live API WebSockets while allowing direct schema migrations in Supabase.
+2. Isolate Heavy Client ML/WASM in Web Workers: Run Transformers.js (q8/q4 Whisper + sentiment) and @contentauth/c2pa-web inside dedicated Web Workers so main-thread rendering stays smooth across three-globe, @pixiv/three-vrm, and @mawtech/glass-ui.
+3. Protect Per-Project Gemini Free Quotas: Route deterministic move checks (Stockfish/Maia3 via llm-chess-mcp), lobby audio classification (Transformers.js), and numerical fact validation (chess-coach pattern) off the Gemini quota, saving Gemini Developer API and Live API calls strictly for coaching dialogue and AI Court review.
+4. Stage Proof of Skill Across Two Phases: Launch Phase 1 using official public APIs (Chess.com, Lichess, Riot, Steam, FACEIT) plus C2PA-validated screenshots (@contentauth/c2pa-web + ChronoVerify MCP) for EA FC and Call of Duty. Defer tlsnotary/tlsn zkTLS web-portal proofs to Phase 2 because tlsn carries active pre-production breaking-change warnings and requires custom Rust-to-WASM compilation (clang 16+) plus a notary relay.
+Works cited
+1. Gemini API Free Tier in 2026: What Is Free and What to Check, https://www.aifreeapi.com/en/posts/google-gemini-api-free-tier 2. GitHub - contentauth/c2pa-js, https://github.com/contentauth/c2pa-js 3. Get started with the Gemini Live API using Firebase AI Logic - Google, https://firebase.google.com/docs/ai-logic/live-api 4. huggingface/transformers.js: State-of-the-art Machine Learning for, https://github.com/huggingface/transformers.js/ 5. Rust implementation of the TLSNotary protocol - GitHub, https://github.com/tlsnotary/tlsn 6. INSANE0777/Fc26-live-editor-mcp - GitHub, https://github.com/INSANE0777/Fc26-live-editor-mcp 7. GitHub - kupsas/football-data-mcp: Football analytics for the AI era, https://github.com/kupsas/football-data-mcp 8. CXWorld/CapFrameX: Frametime capture and analysis tool - GitHub, https://github.com/CXWorld/CapFrameX 9. MCP server that turns any AI assistant into a chess coach ... - GitHub, https://github.com/deven1003/chess-coach-mcp 10. Danyals-code/UI-Design-for-AVP - GitHub, https://github.com/Danyals-code/UI-Design-for-AVP 11. A CDN for npm and GitHub - c2pa CDN by jsDelivr, https://www.jsdelivr.com/package/npm/c2pa 12. bo3 · GitHub Topics, https://github.com/topics/bo3?o=desc&s=forks 13. Trackergg Scraper - Apify, https://apify.com/aiweb/trackergg-scraper 14. GitHub - rmyndharis/antigravity-skills: A curated collection of Agent, https://github.com/rmyndharis/antigravity-skills 15. Deep Dive: Antigravity Agent Skills | by George Mao | Google Cloud, https://medium.com/google-cloud/deep-dive-antigravity-agent-skills-b303bf05085b 16. Antigravity agent - Gemini API - Google AI Studio, https://aistudio.google.com/docs/antigravity-agent 17. Skills for the Gemini API, SDK and model/agent interactions · GitHub, https://github.com/google-gemini/gemini-skills 18. prepaser/llm-chess-mcp - GitHub, https://github.com/prepaser/llm-chess-mcp 19. Unified MCP server for all League of Legends Riot API endpoints., https://github.com/kostadindev/League-of-Legends-MCP 20. GitHub - CloudAI-X/threejs-skills, https://github.com/cloudai-x/threejs-skills 21. threejs-devtools-mcp by Berk08018 - Glama, https://glama.ai/mcp/servers/Berk08018/threejs-devtools-mcp 22. GitHub - ahujasid/mcp-for-blender: Community plugin to control, https://github.com/ahujasid/mcp-for-blender 23. img2threejs - AI Agents on GitHub (4.2k ) | SkillsLLM, https://skillsllm.com/skill/img2threejs 24. supabase/mcp: Connect Supabase to your AI assistants - GitHub, https://github.com/supabase/mcp 25. Firebase MCP server | Develop with AI assistance - Google, https://firebase.google.com/docs/ai-assistance/mcp-server 26. Supabase MCP Server, https://supabase.com/blog/mcp-server 27. firebase-tools/src/mcp/README.md at main - GitHub, https://github.com/firebase/firebase-tools/blob/main/src/mcp/README.md 28. Firebase MCP Server, https://www.mcpdirectory.io/tools/firebase-mcp 29. FFmpeg-MCP - video-creator - GitHub, https://github.com/video-creator/ffmpeg-mcp 30. mnehmos.ffmpeg-llm.mcp - GitHub, https://github.com/Mnehmos/mnehmos.ffmpeg-llm.mcp 31. GitHub - ever-works/awesome-mcp-servers, https://github.com/ever-works/awesome-mcp-servers 32. Highlight MCP Servers - Model Context Protocol - MCP Servers, https://mcpservers.com/clients/highlight 33. Sample Applications — NVIDIA CloudXR SDK, https://docs.nvidia.com/cloudxr-sdk/latest/usr_guide/cloudxr_js/examples.html 34. mawtechsolutions/react-glass-ui: Beautiful Apple-style ... - GitHub, https://github.com/mawtechsolutions/react-glass-ui 35. fluid-design-io/vision-ui: VisionOS UI built with React ⚛️ - GitHub, https://github.com/fluid-design-io/vision-ui 36. pixiv/three-vrm: Use VRM on Three.js - GitHub, https://github.com/pixiv/three-vrm 37. WebGL Globe Data Visualization as a ThreeJS reusable ... - GitHub, https://github.com/vasturiano/three-globe 38. GitHub - semperai/amica: Amica is an open source interface for, https://github.com/semperai/amica 39. GitHub - argentquest/protocol: A deterministic 100-level browser, https://github.com/argentquest/protocol 40. JavaScript/TypeScript Game Engines in 2025, https://gamefromscratch.com/javascript-typescript-game-engines-in-2025/ 41. Phaser vs three.js | What are the differences? - Stackshare.io, https://stackshare.io/stackups/phaserio-vs-three-js 42. sourceful/game-engines: HTML5 Game Engines - GitHub, https://github.com/sourceful/game-engines 43. How to Play PC and Windows Steam Games on a Mac in 2026, https://machow2.com/best-way-play-windows-games-mac/ 44. Community resources | Open-source tools for content authenticity, https://opensource.contentauthenticity.org/docs/community-resources/ 45. megabirds - 0xFacet - GitHub, https://github.com/0xFacet/megabirds 46. .github/LICENSE at main · reclaimprotocol/.github · GitHub, https://github.com/reclaimprotocol/.github/blob/main/LICENSE 47. GitHub - reclaimprotocol/docs: Documentation for Reclaim Protocol, https://github.com/reclaimprotocol/docs 48. GitHub - reclaimprotocol/tls: A TLS client implementation in typescript, https://github.com/reclaimprotocol/tls 49. skills/skills/transformers-js/SKILL.md at main · huggingface/skills, https://github.com/huggingface/skills/blob/main/skills/transformers-js/SKILL.md 50. GitHub - CyprianFusi/mcp-chess-server: A Model Context Protocol, https://github.com/CyprianFusi/mcp-chess-server 51. GitHub - codeNilson/valorant-mcp-server: A Model Context Protocol, https://github.com/codenilson/valorant-mcp-server 52. SteamDB MCP Server - LobeHub, https://lobehub.com/mcp/irfanmaulanaak-steamdb-mcp 53. faceit · GitHub Topics, https://github.com/topics/faceit?l=python&o=desc&s=stars 54. Pricing Comparison by Category - API Map, https://apimap.dev/pricing.html 55. Ask HN: What are you working on? (February 2026) - Hacker News, https://news.ycombinator.com/item?id=46937696 56. drewbitt/starred - GitHub, https://github.com/drewbitt/starred 57. GitHub - m-allakov/chess-coach: MCP server that turns your chess, https://github.com/m-allakov/chess-coach

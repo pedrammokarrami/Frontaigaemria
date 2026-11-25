@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIPETROS — تست پخش یوتیوب</title>
+<style>
+  body { background:#05070B; color:#fff; font-family:-apple-system,system-ui,Tahoma,sans-serif; display:flex; flex-direction:column; align-items:center; gap:14px; padding:24px; }
+  .box { max-width: 640px; width: 100%; }
+  iframe { width:100%; aspect-ratio:16/9; border:0; border-radius:14px; }
+  p { font-size:14px; line-height:1.8; color:#cbd5e1; text-align:center; }
+  h1 { font-size:17px; }
+  #st { font-size:13px; font-weight:700; color:#34d399; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>تست مستقل پخش یوتیوب</h1>
+    <p>این صفحه فقط یه پلیر خالص یوتیوبه — بدون کد AIPETROS. روی ▶ داخل کادر تپ کن.</p>
+    <iframe id="yt" src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw?rel=0&playsinline=1&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p id="st">⏳ در حال لود…</p>
+  </div>
+  <script>
+    var st = document.getElementById('st');
+    window.addEventListener('message', function (ev) {
+      if (!/youtube|youtube-nocookie/.test(ev.origin)) return;
+      st.textContent = '✅ پیام از یوتیوب رسید — پلیر زنده است. اگر ▶ را تپ کردی و صدا/تصویر آمد، پخش سالم است.';
+      st.style.color = '#34d399';
+    });
+    document.getElementById('yt').addEventListener('load', function () {
+      st.textContent = '🟡 iframe لود شد — حالا ▶ داخل کادر را تپ کن.';
+    });
+  </script>
+</body>
+</html>

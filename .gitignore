@@ -1,0 +1,14 @@
+node_modules
+dist
+.env
+
+# local data dir (SQLite database + runtime artifacts)
+.data/
+data/
+glb-pad/
+
+# Telegram bridge secrets
+telegram-bridge/session_new.txt
+telegram-bridge/login_state.json
+telegram-bridge/webhook_url.txt
+telegram-bridge/queue/inbox.jsonl

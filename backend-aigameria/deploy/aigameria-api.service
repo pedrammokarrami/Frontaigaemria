@@ -1,0 +1,19 @@
+[Unit]
+Description=AIGAMERIA API (FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/aigameria/backend-aigameria
+Environment=AIGAMERIA_DB=/opt/aigameria/backend-aigameria/.data/aigameria_api.sqlite
+ExecStart=/opt/aigameria/backend-aigameria/.venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8090 --workers 2
+Restart=always
+RestartSec=3
+# Disk hygiene on the 20G server
+NoNewPrivileges=true
+ProtectSystem=full
+ReadWritePaths=/opt/aigameria/backend-aigameria/.data
+
+[Install]
+WantedBy=multi-user.target

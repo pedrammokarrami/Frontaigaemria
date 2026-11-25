@@ -1,0 +1,1 @@
+"""AIGAMERIA API package."""

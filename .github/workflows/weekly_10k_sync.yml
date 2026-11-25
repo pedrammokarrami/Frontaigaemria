@@ -1,0 +1,53 @@
+name: Weekly 10K Multi-Platform Games Knowledge Sync
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Every Monday 03:00 UTC (100% free GitHub Actions)
+  workflow_dispatch:
+
+jobs:
+  sync-games-knowledge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh 10,000+ Multi-Platform Catalog (IGDB if secrets exist, else Wikidata)
+        env:
+          IGDB_CLIENT_ID: ${{ secrets.IGDB_CLIENT_ID }}
+          IGDB_CLIENT_SECRET: ${{ secrets.IGDB_CLIENT_SECRET }}
+        run: |
+          cd backend/knowledge_engine
+          if [ -n "$IGDB_CLIENT_ID" ] && [ -n "$IGDB_CLIENT_SECRET" ]; then
+            python3 fetch_10k_catalog.py --source igdb --limit 10000
+          else
+            python3 fetch_10k_catalog.py --source wikidata --limit 10000
+          fi
+
+      - name: Incrementally Harvest Guides, StrategyWiki walkthroughs & speedrun tech (resumable)
+        run: |
+          cd backend/knowledge_engine
+          python3 harvest_10k_guides.py --max-games 500 --delay 0.35
+
+      - name: Rebuild Sharded JSONL + SQLite FTS5 RAG database
+        run: |
+          cd backend/knowledge_engine
+          python3 build_10k_rag_db.py --build
+
+      - name: Commit refreshed shards + DB
+        run: |
+          git config user.name "aipetros-engine"
+          git config user.email "engine@aipetros.xyz"
+          git add backend/knowledge_engine/data backend/knowledge_engine/knowledge_10k.db
+          git diff --cached --quiet || git commit -m "chore(knowledge-engine): weekly 10k harvest + FTS5 rebuild [skip ci]"
+          git push
+
+      - name: Upload knowledge artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: world-10k-games-rag-dataset
+          path: |
+            backend/knowledge_engine/data
+            backend/knowledge_engine/knowledge_10k.db

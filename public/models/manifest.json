@@ -1,0 +1,10 @@
+{
+  "ps5": {
+    "deviceGlbUrl": "/models/ps5-dualsense.glb"
+  },
+  "xbox": {
+    "deviceGlbUrl": "/models/xbox-controller.glb"
+  },
+  "pc": {},
+  "ipad": {}
+}

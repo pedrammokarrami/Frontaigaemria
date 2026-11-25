@@ -1,0 +1,522 @@
+@import "./styles/hudMotion.css";
+
+@import "tailwindcss";
+@import "./connection/connection.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root,
+  [data-realm="shooter"] {
+    --font-display: 'Chakra Petch', 'Barlow Condensed', system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --realm-bg: #07080a;
+    --realm-accent: #ff8a00;
+    --realm-accent-secondary: #f59e0b;
+    --realm-text: #f5f7fa;
+    --realm-muted: rgba(245, 247, 250, 0.62);
+  }
+
+  [data-realm="sports"] {
+    --font-display: 'Barlow Condensed', system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --realm-bg: #050d09;
+    --realm-accent: #ccff00;
+    --realm-accent-secondary: #34d399;
+    --realm-text: #ffffff;
+    --realm-muted: rgba(255, 255, 255, 0.68);
+  }
+
+  [data-realm="strategy"] {
+    --font-display: 'Outfit', system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --realm-bg: #050811;
+    --realm-accent: #38bdf8;
+    --realm-accent-secondary: #eab308;
+    --realm-text: #f1f5f9;
+    --realm-muted: rgba(241, 245, 249, 0.64);
+  }
+
+  [data-realm="story"] {
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --realm-bg: #0e0907;
+    --realm-accent: #dc2626;
+    --realm-accent-secondary: #f5f0e6;
+    --realm-text: #f7f3eb;
+    --realm-muted: rgba(247, 243, 235, 0.68);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    background-color: var(--realm-bg);
+    color: var(--realm-text);
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono-tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Frameless transparent HUD helper (NO backdrop-blur over WebGL canvases!) */
+.hud-ghost-surface {
+  background: linear-gradient(90deg, rgba(6, 8, 11, 0.72) 0%, rgba(6, 8, 11, 0.32) 78%, rgba(6, 8, 11, 0) 100%);
+}
+
+.hud-pill-clear {
+  background: rgba(6, 9, 13, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* EA SPORTS FC 27 Global Slanted Parallelogram Blade, Chamfered Card & FUT Shield System */
+.fc-slant,
+.fc27-blade {
+  transform: skewX(-12deg);
+  border-radius: 0px;
+}
+
+.fc-unslant,
+.fc27-unskew {
+  display: inline-flex;
+  align-items: center;
+  transform: skewX(12deg);
+}
+
+.fc27-unskew-block {
+  display: block;
+  transform: skewX(12deg);
+}
+
+.fc27-menu-blade {
+  transform: skewX(-12deg);
+  background: linear-gradient(100deg, rgba(6, 9, 13, 0.92) 0%, rgba(12, 18, 24, 0.78) 100%);
+  border-left: 4px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.fc27-menu-blade:hover {
+  transform: translateX(6px) skewX(-12deg);
+  background: linear-gradient(100deg, rgba(14, 20, 28, 0.96) 0%, rgba(20, 28, 36, 0.88) 100%);
+}
+
+.fc27-key-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* FC 27 Chamfered Obsidian Carbon Panel & Cards (Zero-clipping mobile & desktop) */
+.fc27-panel {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.018) 0px,
+      rgba(255, 255, 255, 0.018) 2px,
+      transparent 2px,
+      transparent 10px
+    ),
+    linear-gradient(165deg, rgba(11, 15, 21, 0.86) 0%, rgba(6, 9, 14, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.fc27-card {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.022) 0px,
+      rgba(255, 255, 255, 0.022) 2px,
+      transparent 2px,
+      transparent 9px
+    ),
+    linear-gradient(155deg, rgba(18, 24, 34, 0.92) 0%, rgba(9, 13, 19, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-top: 2px solid rgba(255, 255, 255, 0.22);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.fc27-card:hover {
+  border-color: rgba(204, 255, 0, 0.45);
+}
+
+.fc27-card-volt {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(204, 255, 0, 0.045) 0px,
+      rgba(204, 255, 0, 0.045) 2px,
+      transparent 2px,
+      transparent 9px
+    ),
+    linear-gradient(155deg, rgba(22, 33, 14, 0.92) 0%, rgba(9, 13, 18, 0.96) 100%);
+  border: 1px solid rgba(204, 255, 0, 0.65);
+  border-top: 2px solid #ccff00;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  box-shadow: 0 10px 28px rgba(204, 255, 0, 0.14);
+}
+
+.fc27-card-gold {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(245, 197, 66, 0.05) 0px,
+      rgba(245, 197, 66, 0.05) 2px,
+      transparent 2px,
+      transparent 9px
+    ),
+    linear-gradient(150deg, rgba(52, 41, 14, 0.92) 0%, rgba(16, 15, 14, 0.97) 58%, rgba(36, 28, 10, 0.95) 100%);
+  border: 1px solid rgba(245, 197, 66, 0.65);
+  border-top: 2px solid #f5c542;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  box-shadow: 0 14px 32px rgba(245, 197, 66, 0.16);
+}
+
+.fc27-card-live {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 46, 84, 0.045) 0px,
+      rgba(255, 46, 84, 0.045) 2px,
+      transparent 2px,
+      transparent 9px
+    ),
+    linear-gradient(155deg, rgba(44, 12, 22, 0.92) 0%, rgba(11, 12, 18, 0.97) 100%);
+  border: 1px solid rgba(255, 46, 84, 0.65);
+  border-top: 2px solid #ff2e54;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  box-shadow: 0 12px 28px rgba(255, 46, 84, 0.18);
+}
+
+.fc27-fut-shield {
+  clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 84%, 50% 100%, 0% 84%, 0% 10%);
+}
+
+.fc27-chamfer-sm {
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.fc27-tab-bar {
+  background: rgba(8, 12, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 2px solid rgba(204, 255, 0, 0.25);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.fc27-btn-volt {
+  background: #ccff00;
+  color: #05070b;
+  font-weight: 900;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), filter 0.15s ease;
+}
+
+.fc27-btn-volt:hover {
+  filter: brightness(1.06);
+}
+
+.fc27-btn-dark {
+  background: rgba(16, 22, 32, 0.94);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.fc27-btn-dark:hover {
+  background: rgba(26, 35, 48, 0.98);
+  border-color: rgba(204, 255, 0, 0.5);
+}
+
+/* RDR2 Distressed Ink Text Shadow */
+[data-realm="story"] .rdr-ink {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.92), 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Glowing audio visualizer wave synced to 3D Coach */
+@keyframes voiceWave {
+  0%, 100% {
+    transform: scaleY(0.25);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.voice-wave-bar {
+  animation: voiceWave 0.68s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Motion-Graphics Stage Entrance & SVG Telestrator Animations */
+@keyframes motionStageEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-24px, 14px, 0) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes motionDrawVector {
+  0% {
+    stroke-dashoffset: 320;
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes motionPopNode {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.82);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes motionScannerSweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(380%);
+    opacity: 0;
+  }
+}
+
+.motion-stage-enter {
+  animation: motionStageEnter 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.motion-vector-path {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: motionDrawVector 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.motion-callout-pop {
+  opacity: 0;
+  animation: motionPopNode 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.motion-scanner-bar {
+  animation: motionScannerSweep 2.6s ease-in-out infinite;
+}
+
+@keyframes fuiWinReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.965) translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voice-wave-bar,
+  .motion-stage-enter,
+  .motion-vector-path,
+  .motion-callout-pop,
+  .motion-scanner-bar {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Boot gate & section warmup spinner */
+@keyframes aig-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Controller trainer (Petros-gamepad) scoped utilities — verbatim from the source repo ── */
+.font-mono-tabular {
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.vision-glass {
+  background: linear-gradient(
+    180deg,
+    rgba(24, 30, 44, 0.88) 0%,
+    rgba(14, 18, 28, 0.92) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 42px -12px rgba(0, 0, 0, 0.65),
+    0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.vision-glass-subtle {
+  background: linear-gradient(
+    180deg,
+    rgba(28, 34, 50, 0.82) 0%,
+    rgba(16, 20, 32, 0.88) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 12px 30px -10px rgba(0, 0, 0, 0.55);
+}
+
+.vision-pill-active {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.studio-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.studio-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.studio-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+}
+
+.studio-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Aigameria Social Club theme tokens (from Petros-connection) ---- */
+@theme {
+  --color-midnight-950: #0D091A;
+  --color-midnight-900: #140E27;
+  --color-midnight-850: #1B1333;
+  --color-midnight-800: #231942;
+  --color-sunset-orange: #FF6B35;
+  --color-sunset-amber: #FF9F43;
+  --color-electric-pink: #FF3E8A;
+  --color-tropical-cyan: #22D3EE;
+}
+
+/* ── AIGAMERIA desktop shell (option a — user-approved) ─────────────────────
+   The product is a 9:16 mobile-first app. On wide desktop screens it renders
+   inside a sleek centered phone-style frame over an ambient AIGAMERIA backdrop
+   instead of stretching edge-to-edge. `transform: translateZ(0)` makes the
+   frame the containing block for fixed-position children, so full-screen
+   layers (3D stage, coach room, gates) stay trapped inside the frame. */
+.aigameria-desktop-shell {
+  min-height: 100dvh;
+}
+
+@media (min-width: 1024px) {
+  .aigameria-desktop-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #05070d;
+    background-image:
+      radial-gradient(ellipse 70% 55% at 18% -8%, rgba(255, 107, 53, 0.13), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 4%, rgba(255, 62, 138, 0.11), transparent 58%),
+      radial-gradient(ellipse 50% 45% at 50% 108%, rgba(34, 211, 238, 0.08), transparent 60%);
+  }
+
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] {
+    width: min(52.9dvh, 100vw);
+    height: min(94dvh, calc(100vw * 1.7778));
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow:
+      0 40px 140px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+    transform: translateZ(0);
+  }
+
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] > * {
+    border-radius: inherit;
+  }
+}
+
+/* Frame containment: full-viewport utility layers (fixed w-screen/h-screen,
+   h-dvh) must size to the phone frame, not the browser viewport. */
+@media (min-width: 1024px) {
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] .w-screen { width: 100%; }
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] .h-screen { height: 100%; }
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] .h-dvh { height: 100%; }
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] .min-h-dvh { min-height: 100%; }
+  .aigameria-desktop-shell [data-testid='aipetros-spatial-root'] .min-h-screen { min-height: 100%; }
+}

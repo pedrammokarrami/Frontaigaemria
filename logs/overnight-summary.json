@@ -1,0 +1,82 @@
+{
+ "startedAt": "2026-11-22T01:41:43.264Z",
+ "durationHours": 8,
+ "targetUsers": 1000,
+ "registered": 1000,
+ "activeUsers": 1000,
+ "rounds": 0,
+ "actions": {
+  "total": 11210,
+  "ok": 10085,
+  "fail": 1125
+ },
+ "bySection": {
+  "register": {
+   "total": 1000,
+   "ok": 1000,
+   "fail": 0
+  },
+  "security": {
+   "total": 2066,
+   "ok": 2041,
+   "fail": 25
+  },
+  "profile": {
+   "total": 1975,
+   "ok": 1945,
+   "fail": 30
+  },
+  "accounts": {
+   "total": 993,
+   "ok": 991,
+   "fail": 2
+  },
+  "hologram": {
+   "total": 1045,
+   "ok": 1043,
+   "fail": 2
+  },
+  "ingest": {
+   "total": 1069,
+   "ok": 1059,
+   "fail": 10
+  },
+  "chat": {
+   "total": 1041,
+   "ok": 0,
+   "fail": 1041
+  },
+  "coach": {
+   "total": 2021,
+   "ok": 2006,
+   "fail": 15
+  }
+ },
+ "coachQuestions": {
+  "asked": 997,
+  "answered": 997,
+  "withLiveSources": 894,
+  "avgLatencyMs": 1184,
+  "latencySum": 1180792
+ },
+ "chat": {
+  "roomsCreated": 1035,
+  "messagesSent": 0,
+  "ok": 0,
+  "fail": 0
+ },
+ "errors": {
+  "fetch failed": 103,
+  "http_404": 1017,
+  "This operation was aborted": 5
+ },
+ "statusCodes": {
+  "200": 4994,
+  "201": 3050,
+  "400": 1012,
+  "404": 2046,
+  "exception": 108
+ },
+ "updatedAt": "2026-11-22T08:47:16.907Z",
+ "elapsedHours": 7.09
+}

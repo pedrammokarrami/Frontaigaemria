@@ -1,0 +1,21 @@
+# Render.com Blueprint — deploys AIPETROS (frontend + API in one service)
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: aipetros
+    runtime: node
+    plan: free
+    region: frankfurt        # closest free region to IR/EU; change if you like
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: FORCE_HSTS
+        value: "1"           # Render terminates TLS → HSTS is safe here
+      - key: CORS_ORIGINS
+        value: ""            # same-origin only; add extra origins if needed

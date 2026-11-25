@@ -1,0 +1,65 @@
+[
+  {
+    "game_id": "uncharted-4",
+    "chapter": "Chapter 8 — The Grave of Henry Avery (Scotland)",
+    "title": "Cathedral Crosses — Orion Beam Puzzle",
+    "layer": "puzzle",
+    "source": "gamerguides.com (paraphrased, verified 2026-11)",
+    "keywords": ["crosses", "orion", "dismas", "jesus", "getas", "constellation", "cathedral", "beam", "lamp", "stars"],
+    "steps_en": [
+      "Examine the three crosses at the front of the cathedral to add the mandatory journal entry, then talk to Sam about Avery's obsession with Saint Dismas.",
+      "Circle around the BACK of the crosses and examine the lamp; ask Sam to light it — the mechanisms behind the wall light up.",
+      "Return to the front. Each cross has a portal below it; use the left/right analog sticks to rotate and slide each light beam so it points at stars on the wall.",
+      "Goal: the three beams together must draw the constellation ORION on the wall.",
+      "DISMAS (left cross): aim its beam at the second star from the bottom AND the top-right star.",
+      "JESUS (middle cross): aim its beam at the TOP star and the BOTTOM star.",
+      "GETAS (right cross): aim its beam at the final two stars (the remaining lower stars of Orion's belt area).",
+      "When every star is covered and Orion is complete, the puzzle resolves — read the journal, then continue to Avery's grave."
+    ],
+    "buttons_en": ["R2 — examine / journal", "Left stick — rotate beam", "Right stick — slide beam target", "X — confirm / talk"]
+  },
+  {
+    "game_id": "uncharted-4",
+    "chapter": "Chapter 8 — The Grave of Henry Avery (Scotland)",
+    "title": "Avery's Grave Star Door",
+    "layer": "puzzle",
+    "source": "gamerguides.com (paraphrased, verified 2026-11)",
+    "keywords": ["grave", "locked door", "stars", "light", "mechanism", "avery"],
+    "steps_en": [
+      "Inspect the locked door marked with the star pattern next to Avery's grave — Nate sketches it in the journal.",
+      "Turn around and examine the lamp behind you; have Sam light it so the mechanism glows.",
+      "Behind the wall panel, rotate and move the emitted lights with the analog sticks to recreate the exact star pattern you saw on the door.",
+      "There is exactly ONE solution — match each light to a door star; wrong overlap positions simply don't click, so keep rotating until each light locks onto a star."
+    ],
+    "buttons_en": ["Left stick — rotate light", "Right stick — move light", "R2 — examine"]
+  },
+  {
+    "game_id": "god-of-war",
+    "chapter": "World-at-large — Nornir Chests",
+    "title": "Nornir Chest Rune Seals",
+    "layer": "puzzle",
+    "source": "public walkthrough knowledge (mechanic, generic)",
+    "keywords": ["nornir", "chest", "rune", "seal", "bell", "idol"],
+    "steps_en": [
+      "Find the sealed golden chest, then locate its three rune seals nearby — they are never inside the chest room itself.",
+      "Seal types: rune bells (hit with the axe — they re-ring, so hit all three quickly), rune switches (throw the axe to lock them), and rune idols (destroy the green growth with the blades first).",
+      "Hit/lock all three seals in quick succession; the chest unlocks and grants an Idunn Apple (health) or Horn of Blood Mead (rage)."
+    ],
+    "buttons_en": ["L2 — throw axe", "Square — recall axe", "R1/R2 — melee seal"]
+  },
+  {
+    "game_id": "elden-ring",
+    "chapter": "Limgrave — Dectus Medallion",
+    "title": "Grand Lift of Dectus — Two Medallion Halves",
+    "layer": "puzzle",
+    "source": "public walkthrough knowledge (mechanic, generic)",
+    "keywords": ["dectus", "lift", "medallion", "fort", "halves"],
+    "steps_en": [
+      "The Grand Lift of Dectus needs BOTH medallion halves; the lift tells you the right half is missing if you only hold one.",
+      "Left half: at Fort Haight (east Limgrave) — climb the keep, open the chest at the top of the tower.",
+      "Right half: at Fort Faroth (east Caelid, across the limgrave border) — chest at the top of the battlements.",
+      "With both halves, stand on the lift plinth and raise it — it carries you to the Altus Plateau."
+    ],
+    "buttons_en": ["E / Circle — interact (platform-dependent prompt)"]
+  }
+]

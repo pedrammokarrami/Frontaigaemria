@@ -1,0 +1,10 @@
+[Unit]
+Description=AIGAMERIA incremental sync (metadata-only, idempotent)
+After=aigameria-api.service
+
+[Service]
+Type=oneshot
+User=www-data
+WorkingDirectory=/opt/aigameria/backend-aigameria
+Environment=AIGAMERIA_DB=/opt/aigameria/backend-aigameria/.data/aigameria_api.sqlite
+ExecStart=/opt/aigameria/backend-aigameria/.venv/bin/python pipeline/sync.py
