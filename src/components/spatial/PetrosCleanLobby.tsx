@@ -70,13 +70,32 @@ export const PetrosCleanLobby: React.FC<PetrosCleanLobbyProps> = ({
         const payload = json && typeof json === 'object' && 'data' in json ? (json as { data: ApiMenuPayload }).data : (json as unknown as ApiMenuPayload);
         setApiMenu(payload);
         setMenuFailed(false);
-      } catch {
+      } catch (err) {
+        console.error('[AIGAMERIA] menu API failed — showing retry UI:', err);
         if (alive) setMenuFailed(true);
       }
     };
     load();
     return () => { alive = false; };
   }, []);
+
+  const retryMenu = () => {
+    setMenuFailed(false);
+    let alive = true;
+    (async () => {
+      try {
+        const resp = await fetch('/api/v1/menu?lang=en', { headers: { Accept: 'application/json' } });
+        if (!resp.ok) throw new Error(`menu HTTP ${resp.status}`);
+        const json = await resp.json();
+        if (!alive) return;
+        const payload = json && typeof json === 'object' && 'data' in json ? (json as { data: ApiMenuPayload }).data : (json as unknown as ApiMenuPayload);
+        setApiMenu(payload);
+      } catch (err) {
+        console.error('[AIGAMERIA] menu API retry failed:', err);
+        setMenuFailed(true);
+      }
+    })();
+  };
 
   // Every tile, label and version comes from the API — zero hardcoded data.
   const apiMenuDescriptors: import('../../utils/hubQuickMenu').HubMenuDescriptor[] | null = apiMenu
@@ -137,7 +156,18 @@ export const PetrosCleanLobby: React.FC<PetrosCleanLobbyProps> = ({
             </p>
           ) : null}
           {menuFailed && !apiMenu ? (
-            <p className="mt-4 text-[11px] text-white/45">menu service unreachable — retry shortly</p>
+            <div className="mt-6 pointer-events-auto">
+              <p className="text-[13px] font-bold text-white/85">Menu service unreachable</p>
+              <p className="mt-1 text-[11px] text-white/45">The backend did not answer — menus will appear once it responds.</p>
+              <button
+                type="button"
+                onClick={retryMenu}
+                data-testid="clean-lobby-retry-btn"
+                className="mt-3 px-4 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white text-[12.5px] font-extrabold cursor-pointer transition"
+              >
+                Retry now
+              </button>
+            </div>
           ) : null}
         </div>
       </div>
